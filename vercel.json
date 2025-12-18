@@ -1,12 +1,5 @@
 {
   "version": 2,
-  "public": true,
   "cleanUrls": true,
-  "trailingSlash": false,
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/Portfolio Google Sheet/$1"
-    }
-  ]
+  "trailingSlash": false
 }
