@@ -1,7 +1,12 @@
 {
-  "buildCommand": "echo 'No build required'",
-  "outputDirectory": "Portfolio Google Sheet",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/Portfolio Google Sheet/$1" }
+  "version": 2,
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/Portfolio Google Sheet/$1"
+    }
   ]
 }
