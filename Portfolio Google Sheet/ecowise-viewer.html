@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Projet Ecowise - Portfolio Jules Espy</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background: #e5e5e5;
+				font-family: Arial, sans-serif;
+			}
+			.back-button {
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				z-index: 1000;
+				background: rgba(73, 191, 157, 0.9);
+				color: white;
+				padding: 12px 24px;
+				border-radius: 5px;
+				text-decoration: none;
+				font-weight: bold;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			}
+			.back-button:hover {
+				background: rgba(73, 191, 157, 1);
+			}
+			#pdf-container {
+				width: 100%;
+				min-height: 100vh;
+				padding: 20px 20px 40px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			.pdf-page {
+				margin-bottom: 30px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				background: white;
+				border-radius: 4px;
+				overflow: hidden;
+				width: 100%;
+				max-width: 900px;
+			}
+			.pdf-page canvas {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.loading {
+				text-align: center;
+				padding: 100px 20px;
+				color: #787878;
+				font-size: 18px;
+			}
+			.error {
+				text-align: center;
+				padding: 100px 20px;
+				color: #d32f2f;
+			}
+			.error a {
+				color: #49bf9d;
+				text-decoration: none;
+				font-weight: bold;
+				margin-top: 20px;
+				display: inline-block;
+				padding: 12px 30px;
+				background: rgba(73, 191, 157, 0.1);
+				border-radius: 5px;
+			}
+			.error a:hover {
+				background: rgba(73, 191, 157, 0.2);
+			}
+			.project-description {
+				background: white;
+				max-width: 900px;
+				margin: 80px auto 40px;
+				padding: 40px;
+				border-radius: 8px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+			}
+			.project-description h1 {
+				font-size: 28px;
+				color: #333;
+				margin-bottom: 10px;
+				font-weight: bold;
+			}
+			.project-description .subtitle {
+				color: #787878;
+				font-size: 16px;
+				margin-bottom: 30px;
+				font-style: italic;
+			}
+			.project-description h2 {
+				font-size: 20px;
+				color: #49bf9d;
+				margin-top: 30px;
+				margin-bottom: 15px;
+				font-weight: bold;
+			}
+			.project-description p {
+				color: #555;
+				line-height: 1.8;
+				margin-bottom: 15px;
+				font-size: 16px;
+			}
+			.project-description ul {
+				color: #555;
+				line-height: 1.8;
+				margin-left: 20px;
+				margin-bottom: 15px;
+			}
+			.project-description li {
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="index.html" class="back-button">← Retour au portfolio</a>
+		
+		<div class="project-description">
+			<h1>EcoWise Campus — Gamification de la réduction des déchets</h1>
+			<p class="subtitle">Projet académique – Travail de groupe</p>
+			
+			<h2>Description du projet</h2>
+			<p>EcoWise Campus est un projet de groupe visant à encourager la réduction des déchets sur les campus universitaires à travers la gamification. Le projet transforme des comportements écologiques du quotidien en défis ludiques et mesurables afin d'augmenter l'engagement des étudiants et de générer un impact environnemental concret.</p>
+			
+			<h2>Ce que nous avons réalisé</h2>
+			<ul>
+				<li>Conception du concept et de la proposition de valeur du produit</li>
+				<li>Définition d'un objectif mesurable : réduction des déchets de 20 % en 3 mois</li>
+				<li>Design d'un parcours utilisateur gamifié (missions, preuves photo, progression)</li>
+				<li>Mise en place de mécanismes de gamification (points, badges, niveaux, classements)</li>
+				<li>Élaboration d'un système de récompenses simple et accessible pour le campus</li>
+				<li>Définition des indicateurs de mesure d'impact (engagement, missions, taux de tri)</li>
+				<li>Structuration de la boucle d'engagement pour favoriser une adoption durable</li>
+			</ul>
+		</div>
+		
+		<div id="pdf-container">
+			<div class="loading" id="loading">Chargement du PDF...</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+		<script>
+			const pdfUrl = 'images/ecowise-project.pdf';
+			const container = document.getElementById('pdf-container');
+			const loadingEl = document.getElementById('loading');
+
+			// Configuration PDF.js
+			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+			// Fonction pour afficher une erreur
+			function showError(message) {
+				container.innerHTML = '<div class="error">' + message + '<br><br><a href="' + pdfUrl + '" target="_blank">Ouvrir le PDF dans un nouvel onglet (toutes les pages visibles)</a></div>';
+			}
+
+			// Vérifier que le PDF est accessible
+			fetch(pdfUrl)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('PDF non accessible');
+					}
+					return response;
+				})
+				.then(() => {
+					// Charger le PDF avec PDF.js
+					loadingEl.textContent = 'Chargement du PDF...';
+					
+					return pdfjsLib.getDocument({
+						url: pdfUrl,
+						httpHeaders: {},
+						withCredentials: false
+					}).promise;
+				})
+				.then(function(pdf) {
+					console.log('PDF chargé, nombre de pages:', pdf.numPages);
+					loadingEl.textContent = 'Rendu des pages (' + pdf.numPages + ' pages)...';
+					container.innerHTML = '';
+					
+					// Fonction pour rendre une page
+					function renderPage(pageNum) {
+						return pdf.getPage(pageNum).then(function(page) {
+							const scale = 1.5;
+							const viewport = page.getViewport({ scale: scale });
+
+							const canvas = document.createElement('canvas');
+							const context = canvas.getContext('2d');
+							canvas.height = viewport.height;
+							canvas.width = viewport.width;
+							canvas.style.maxWidth = '100%';
+							canvas.style.height = 'auto';
+
+							const pageDiv = document.createElement('div');
+							pageDiv.className = 'pdf-page';
+							pageDiv.setAttribute('data-page', pageNum);
+							pageDiv.appendChild(canvas);
+							container.appendChild(pageDiv);
+
+							const renderContext = {
+								canvasContext: context,
+								viewport: viewport
+							};
+							
+							return page.render(renderContext).promise.then(() => {
+								loadingEl.textContent = 'Page ' + pageNum + ' sur ' + pdf.numPages + ' rendue...';
+							});
+						});
+					}
+
+					// Rendre toutes les pages séquentiellement pour éviter les problèmes de mémoire
+					let currentPage = 1;
+					
+					function renderNextPage() {
+						if (currentPage > pdf.numPages) {
+							// Toutes les pages sont rendues
+							if (loadingEl.parentNode) {
+								loadingEl.remove();
+							}
+							return;
+						}
+						
+						renderPage(currentPage).then(() => {
+							currentPage++;
+							renderNextPage();
+						}).catch(error => {
+							console.error('Erreur lors du rendu de la page', currentPage, error);
+							showError('Erreur lors du rendu de la page ' + currentPage);
+						});
+					}
+					
+					// Commencer le rendu
+					renderNextPage();
+
+				})
+				.catch(function(error) {
+					console.error('Erreur:', error);
+					showError('Erreur lors du chargement du PDF. Le PDF s\'ouvrira dans un nouvel onglet où vous pourrez voir toutes les pages.');
+				});
+		</script>
+	</body>
+</html>

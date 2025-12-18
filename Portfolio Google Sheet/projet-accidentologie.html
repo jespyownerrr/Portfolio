@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Analyse géographique et territoriale de l'accidentologie - Portfolio Jules Espy</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background: #e5e5e5;
+				font-family: Arial, sans-serif;
+			}
+			.back-button {
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				z-index: 1000;
+				background: rgba(73, 191, 157, 0.9);
+				color: white;
+				padding: 12px 24px;
+				border-radius: 5px;
+				text-decoration: none;
+				font-weight: bold;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			}
+			.back-button:hover {
+				background: rgba(73, 191, 157, 1);
+			}
+			#pdf-container {
+				width: 100%;
+				min-height: 50vh;
+				padding: 20px 20px 40px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			.pdf-page {
+				margin-bottom: 30px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				background: white;
+				border-radius: 4px;
+				overflow: hidden;
+				width: 100%;
+				max-width: 900px;
+			}
+			.pdf-page canvas {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.loading {
+				text-align: center;
+				padding: 50px 20px;
+				color: #787878;
+				font-size: 18px;
+			}
+			.error {
+				text-align: center;
+				padding: 100px 20px;
+				color: #d32f2f;
+			}
+			.error a {
+				color: #49bf9d;
+				text-decoration: none;
+				font-weight: bold;
+				margin-top: 20px;
+				display: inline-block;
+				padding: 12px 30px;
+				background: rgba(73, 191, 157, 0.1);
+				border-radius: 5px;
+			}
+			.error a:hover {
+				background: rgba(73, 191, 157, 0.2);
+			}
+			.project-description {
+				background: white;
+				max-width: 900px;
+				margin: 80px auto 40px;
+				padding: 40px;
+				border-radius: 8px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+			}
+			.project-description h1 {
+				font-size: 28px;
+				color: #333;
+				margin-bottom: 10px;
+				font-weight: bold;
+			}
+			.project-description .subtitle {
+				color: #787878;
+				font-size: 16px;
+				margin-bottom: 30px;
+				font-style: italic;
+			}
+			.project-description h2 {
+				font-size: 20px;
+				color: #49bf9d;
+				margin-top: 30px;
+				margin-bottom: 15px;
+				font-weight: bold;
+			}
+			.project-description p {
+				color: #555;
+				line-height: 1.8;
+				margin-bottom: 15px;
+				font-size: 16px;
+			}
+			.project-description ul {
+				color: #555;
+				line-height: 1.8;
+				margin-left: 20px;
+				margin-bottom: 15px;
+			}
+			.project-description li {
+				margin-bottom: 10px;
+			}
+			.project-link {
+				display: inline-block;
+				margin-top: 25px;
+				padding: 12px 24px;
+				background: rgba(73, 191, 157, 0.1);
+				color: #49bf9d;
+				text-decoration: none;
+				border-radius: 5px;
+				font-weight: bold;
+				border: 2px solid #49bf9d;
+				transition: all 0.3s ease;
+			}
+			.project-link:hover {
+				background: #49bf9d;
+				color: white;
+			}
+			.project-section {
+				margin-bottom: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="index.html" class="back-button">← Retour au portfolio</a>
+		
+		<div class="project-description">
+			<h1>Projet Google Sheet</h1>
+			<p class="subtitle">Projet académique – Travail de groupe</p>
+			
+			<h2>Description du projet</h2>
+			<p>Projet d'analyse de données visant à comprendre comment les disparités territoriales et le niveau d'urbanisation influencent la fréquence et la gravité des accidents de la route en France. L'étude compare notamment les zones urbaines, rurales et les territoires d'outre-mer à partir de données officielles.</p>
+			
+			<h2>Ce que nous avons réalisé</h2>
+			<ul>
+				<li>Analyse de bases de données nationales sur les accidents corporels (BAAC)</li>
+				<li>Nettoyage et structuration des données sur Google Sheets</li>
+				<li>Enrichissement des données avec des sources externes (INSEE) pour ajouter population, densité et superficie</li>
+				<li>Création d'indicateurs clés (taux d'accidents, gravité, mortalité)</li>
+				<li>Comparaison territoriale : métropole vs outre-mer, urbain vs rural</li>
+				<li>Production de graphiques et d'insights pour répondre à une problématique précise</li>
+			</ul>
+			
+			<h2>Objectif pédagogique</h2>
+			<p>Mettre en pratique l'analyse de données, la visualisation et l'interprétation de résultats pour formuler des conclusions exploitables dans un contexte réel de politique publique et de sécurité routière.</p>
+			
+			<h2>Accès aux données</h2>
+			<p>Vous pouvez consulter et explorer les données du projet directement sur Google Sheets :</p>
+			<a href="https://docs.google.com/spreadsheets/d/1AslTNUQ5lU6caIzniQC5XwxZMLyaDNQeyBbZpCTncz8/edit?gid=839221487#gid=839221487" target="_blank" class="project-link">
+				Ouvrir le Google Sheet du projet
+			</a>
+		</div>
+		
+		<div id="pdf-container">
+			<div class="loading" id="loading">Chargement du PDF...</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+		<script>
+			// Ici tu devras mettre le chemin vers le PDF de ce projet
+			const pdfUrl = 'images/marketing-strategy-proposal.pdf'; // À remplacer par le vrai PDF
+			const container = document.getElementById('pdf-container');
+			const loadingEl = document.getElementById('loading');
+
+			// Configuration PDF.js
+			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+			// Fonction pour afficher une erreur
+			function showError(message) {
+				container.innerHTML = '<div class="error">' + message + '<br><br><a href="' + pdfUrl + '" target="_blank">Ouvrir le PDF dans un nouvel onglet</a></div>';
+			}
+
+			// Vérifier que le PDF est accessible
+			fetch(pdfUrl)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('PDF non accessible');
+					}
+					return response;
+				})
+				.then(() => {
+					// Charger le PDF avec PDF.js
+					loadingEl.textContent = 'Chargement du PDF...';
+					
+					return pdfjsLib.getDocument({
+						url: pdfUrl,
+						httpHeaders: {},
+						withCredentials: false
+					}).promise;
+				})
+				.then(function(pdf) {
+					console.log('PDF chargé, nombre de pages:', pdf.numPages);
+					loadingEl.textContent = 'Rendu des pages (' + pdf.numPages + ' pages)...';
+					container.innerHTML = '';
+					
+					// Fonction pour rendre une page
+					function renderPage(pageNum) {
+						return pdf.getPage(pageNum).then(function(page) {
+							const scale = 1.5;
+							const viewport = page.getViewport({ scale: scale });
+
+							const canvas = document.createElement('canvas');
+							const context = canvas.getContext('2d');
+							canvas.height = viewport.height;
+							canvas.width = viewport.width;
+							canvas.style.maxWidth = '100%';
+							canvas.style.height = 'auto';
+
+							const pageDiv = document.createElement('div');
+							pageDiv.className = 'pdf-page';
+							pageDiv.setAttribute('data-page', pageNum);
+							pageDiv.appendChild(canvas);
+							container.appendChild(pageDiv);
+
+							const renderContext = {
+								canvasContext: context,
+								viewport: viewport
+							};
+							
+							return page.render(renderContext).promise.then(() => {
+								loadingEl.textContent = 'Page ' + pageNum + ' sur ' + pdf.numPages + ' rendue...';
+							});
+						});
+					}
+
+					// Rendre toutes les pages séquentiellement
+					let currentPage = 1;
+					
+					function renderNextPage() {
+						if (currentPage > pdf.numPages) {
+							if (loadingEl.parentNode) {
+								loadingEl.remove();
+							}
+							return;
+						}
+						
+						renderPage(currentPage).then(() => {
+							currentPage++;
+							renderNextPage();
+						}).catch(error => {
+							console.error('Erreur lors du rendu de la page', currentPage, error);
+							showError('Erreur lors du rendu de la page ' + currentPage);
+						});
+					}
+					
+					renderNextPage();
+
+				})
+				.catch(function(error) {
+					console.error('Erreur:', error);
+					showError('Erreur lors du chargement du PDF.');
+				});
+		</script>
+	</body>
+</html>
+

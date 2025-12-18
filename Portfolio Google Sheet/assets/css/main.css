@@ -2141,9 +2141,23 @@ input, select, textarea {
 				display: none;
 			}
 
-			.image.avatar img {
+			/* Avatar du header : cercle fixe, image zoomée et recadrée au-dessus du buste */
+			#header .image.avatar {
+				width: 12em;
+				height: 12em;
+				overflow: hidden;
+				border-radius: 100%;
+				display: block;
+				margin: 0 auto 1em auto; /* centre horizontalement */
+			}
+
+			#header .image.avatar img {
 				border-radius: 100%;
 				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center center; /* centrage visage */
+				display: block;
 			}
 
 /* List */
@@ -2639,8 +2653,9 @@ input, select, textarea {
 		}
 
 		#header .image.avatar {
-			margin: 0 0 1em 0;
-			width: 6.25em;
+			margin: 0 auto 1em auto; /* centre horizontalement */
+			width: 12em;
+			height: 12em;
 		}
 
 /* Footer */

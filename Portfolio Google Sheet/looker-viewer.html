@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Projet Looker - Portfolio Jules Espy</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background: #e5e5e5;
+				font-family: Arial, sans-serif;
+			}
+			.back-button {
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				z-index: 1000;
+				background: rgba(73, 191, 157, 0.9);
+				color: white;
+				padding: 12px 24px;
+				border-radius: 5px;
+				text-decoration: none;
+				font-weight: bold;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			}
+			.back-button:hover {
+				background: rgba(73, 191, 157, 1);
+			}
+			#pdf-container, #pdf-container-2 {
+				width: 100%;
+				min-height: 50vh;
+				padding: 20px 20px 40px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			.pdf-page {
+				margin-bottom: 30px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				background: white;
+				border-radius: 4px;
+				overflow: hidden;
+				width: 100%;
+				max-width: 900px;
+			}
+			.pdf-page canvas {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.loading, .loading-2 {
+				text-align: center;
+				padding: 50px 20px;
+				color: #787878;
+				font-size: 18px;
+			}
+			.error {
+				text-align: center;
+				padding: 100px 20px;
+				color: #d32f2f;
+			}
+			.error a {
+				color: #49bf9d;
+				text-decoration: none;
+				font-weight: bold;
+				margin-top: 20px;
+				display: inline-block;
+				padding: 12px 30px;
+				background: rgba(73, 191, 157, 0.1);
+				border-radius: 5px;
+			}
+			.error a:hover {
+				background: rgba(73, 191, 157, 0.2);
+			}
+			.project-description {
+				background: white;
+				max-width: 900px;
+				margin: 80px auto 40px;
+				padding: 40px;
+				border-radius: 8px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+			}
+			.project-description h1 {
+				font-size: 28px;
+				color: #333;
+				margin-bottom: 10px;
+				font-weight: bold;
+			}
+			.project-description .subtitle {
+				color: #787878;
+				font-size: 16px;
+				margin-bottom: 30px;
+				font-style: italic;
+			}
+			.project-description h2 {
+				font-size: 20px;
+				color: #49bf9d;
+				margin-top: 30px;
+				margin-bottom: 15px;
+				font-weight: bold;
+			}
+			.project-description p {
+				color: #555;
+				line-height: 1.8;
+				margin-bottom: 15px;
+				font-size: 16px;
+			}
+			.project-description ul {
+				color: #555;
+				line-height: 1.8;
+				margin-left: 20px;
+				margin-bottom: 15px;
+			}
+			.project-description li {
+				margin-bottom: 10px;
+			}
+			.project-link {
+				display: inline-block;
+				margin-top: 25px;
+				padding: 12px 24px;
+				background: rgba(73, 191, 157, 0.1);
+				color: #49bf9d;
+				text-decoration: none;
+				border-radius: 5px;
+				font-weight: bold;
+				border: 2px solid #49bf9d;
+				transition: all 0.3s ease;
+			}
+			.project-link:hover {
+				background: #49bf9d;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="index.html" class="back-button">← Retour au portfolio</a>
+		
+		<div class="project-description">
+			<h1>Dashboard d'analyse de performance digitale</h1>
+			<p class="subtitle">Projet académique – Travail de groupe</p>
+			
+			<h2>Description du projet</h2>
+			<p>Projet de création et d'analyse d'un dashboard de performance visant à suivre l'évolution de l'activité digitale d'une plateforme de contenu payant. L'objectif était de visualiser les indicateurs clés (audience, revenus, conversion) et d'identifier les tendances de croissance à partir de données temporelles et géographiques.</p>
+			
+			<h2>Ce que nous avons réalisé</h2>
+			<ul>
+				<li>Construction d'un dashboard interactif avec des KPI clés (vues, chiffre d'affaires, taux de conversion, articles payés)</li>
+				<li>Analyse de l'évolution des performances dans le temps (mois, année)</li>
+				<li>Comparaison des résultats avec l'année précédente</li>
+				<li>Analyse géographique des vues et des revenus par pays</li>
+				<li>Mise en évidence des marchés les plus performants et des leviers de croissance</li>
+			</ul>
+		</div>
+		
+		<div id="pdf-container">
+			<div class="loading" id="loading">Chargement du PDF...</div>
+		</div>
+
+		<div class="project-description" style="margin-top: 60px;">
+			<h1>Analyse géographique et rentabilité des ventes</h1>
+			<p class="subtitle">Projet académique – Travail individuel</p>
+			
+			<h2>Description du projet</h2>
+			<p>Projet individuel d'analyse de la performance commerciale visant à comprendre l'impact de la dimension géographique sur les ventes, la rentabilité et les marges. Le projet s'appuie sur un jeu de données transactionnelles afin d'identifier les régions et États les plus performants.</p>
+			
+			<h2>Ce que j'ai réalisé</h2>
+			<ul>
+				<li>Modélisation des données à partir de plusieurs tables (clients, produits, commandes, transactions)</li>
+				<li>Construction d'un modèle de données relationnel pour l'analyse (data model)</li>
+				<li>Définition des KPI clés : chiffre d'affaires, profit, marge (%)</li>
+				<li>Création d'un dashboard analytique structuré (summary, tendances, analyse géographique)</li>
+				<li>Analyse des ventes et de la rentabilité par région et par État</li>
+				<li>Visualisation cartographique des performances pour identifier les zones à fort potentiel</li>
+			</ul>
+			<a href="https://docs.google.com/spreadsheets/d/1Dea8OPNFgUIpEZGDrWvRf5MiUAhacnmmIKHUGqt_WFk/edit?gid=151319787#gid=151319787" target="_blank" class="project-link">Accéder au dashboard Google Sheets</a>
+		</div>
+		
+		<div id="pdf-container-2">
+			<div class="loading-2" id="loading-2">Chargement du PDF...</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+		<script>
+			const pdfUrl = 'images/looker-project.pdf';
+			const container = document.getElementById('pdf-container');
+			const loadingEl = document.getElementById('loading');
+
+			// Configuration PDF.js
+			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+			// Fonction pour afficher une erreur
+			function showError(message) {
+				container.innerHTML = '<div class="error">' + message + '<br><br><a href="' + pdfUrl + '" target="_blank">Ouvrir le PDF dans un nouvel onglet (toutes les pages visibles)</a></div>';
+			}
+
+			// Vérifier que le PDF est accessible
+			fetch(pdfUrl)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('PDF non accessible');
+					}
+					return response;
+				})
+				.then(() => {
+					// Charger le PDF avec PDF.js
+					loadingEl.textContent = 'Chargement du PDF...';
+					
+					return pdfjsLib.getDocument({
+						url: pdfUrl,
+						httpHeaders: {},
+						withCredentials: false
+					}).promise;
+				})
+				.then(function(pdf) {
+					console.log('PDF chargé, nombre de pages:', pdf.numPages);
+					loadingEl.textContent = 'Rendu des pages (' + pdf.numPages + ' pages)...';
+					container.innerHTML = '';
+					
+					// Fonction pour rendre une page
+					function renderPage(pageNum) {
+						return pdf.getPage(pageNum).then(function(page) {
+							const scale = 1.5;
+							const viewport = page.getViewport({ scale: scale });
+
+							const canvas = document.createElement('canvas');
+							const context = canvas.getContext('2d');
+							canvas.height = viewport.height;
+							canvas.width = viewport.width;
+							canvas.style.maxWidth = '100%';
+							canvas.style.height = 'auto';
+
+							const pageDiv = document.createElement('div');
+							pageDiv.className = 'pdf-page';
+							pageDiv.setAttribute('data-page', pageNum);
+							pageDiv.appendChild(canvas);
+							container.appendChild(pageDiv);
+
+							const renderContext = {
+								canvasContext: context,
+								viewport: viewport
+							};
+							
+							return page.render(renderContext).promise.then(() => {
+								loadingEl.textContent = 'Page ' + pageNum + ' sur ' + pdf.numPages + ' rendue...';
+							});
+						});
+					}
+
+					// Rendre toutes les pages séquentiellement pour éviter les problèmes de mémoire
+					let currentPage = 1;
+					
+					function renderNextPage() {
+						if (currentPage > pdf.numPages) {
+							// Toutes les pages sont rendues
+							if (loadingEl.parentNode) {
+								loadingEl.remove();
+							}
+							return;
+						}
+						
+						renderPage(currentPage).then(() => {
+							currentPage++;
+							renderNextPage();
+						}).catch(error => {
+							console.error('Erreur lors du rendu de la page', currentPage, error);
+							showError('Erreur lors du rendu de la page ' + currentPage);
+						});
+					}
+					
+					// Commencer le rendu
+					renderNextPage();
+
+				})
+				.catch(function(error) {
+					console.error('Erreur:', error);
+					showError('Erreur lors du chargement du PDF. Le PDF s\'ouvrira dans un nouvel onglet où vous pourrez voir toutes les pages.');
+				});
+
+			// Chargement du deuxième PDF
+			const pdfUrl2 = 'images/looker-project-2.pdf';
+			const container2 = document.getElementById('pdf-container-2');
+			const loadingEl2 = document.getElementById('loading-2');
+
+			// Fonction pour afficher une erreur pour le PDF 2
+			function showError2(message) {
+				container2.innerHTML = '<div class="error">' + message + '<br><br><a href="' + pdfUrl2 + '" target="_blank">Ouvrir le PDF dans un nouvel onglet (toutes les pages visibles)</a></div>';
+			}
+
+			// Vérifier que le PDF 2 est accessible
+			fetch(pdfUrl2)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('PDF non accessible');
+					}
+					return response;
+				})
+				.then(() => {
+					// Charger le PDF avec PDF.js
+					loadingEl2.textContent = 'Chargement du PDF...';
+					
+					return pdfjsLib.getDocument({
+						url: pdfUrl2,
+						httpHeaders: {},
+						withCredentials: false
+					}).promise;
+				})
+				.then(function(pdf) {
+					console.log('PDF 2 chargé, nombre de pages:', pdf.numPages);
+					loadingEl2.textContent = 'Rendu des pages (' + pdf.numPages + ' pages)...';
+					container2.innerHTML = '';
+					
+					// Fonction pour rendre une page
+					function renderPage(pageNum) {
+						return pdf.getPage(pageNum).then(function(page) {
+							const scale = 1.5;
+							const viewport = page.getViewport({ scale: scale });
+
+							const canvas = document.createElement('canvas');
+							const context = canvas.getContext('2d');
+							canvas.height = viewport.height;
+							canvas.width = viewport.width;
+							canvas.style.maxWidth = '100%';
+							canvas.style.height = 'auto';
+
+							const pageDiv = document.createElement('div');
+							pageDiv.className = 'pdf-page';
+							pageDiv.setAttribute('data-page', pageNum);
+							pageDiv.appendChild(canvas);
+							container2.appendChild(pageDiv);
+
+							const renderContext = {
+								canvasContext: context,
+								viewport: viewport
+							};
+							
+							return page.render(renderContext).promise.then(() => {
+								loadingEl2.textContent = 'Page ' + pageNum + ' sur ' + pdf.numPages + ' rendue...';
+							});
+						});
+					}
+
+					// Rendre toutes les pages séquentiellement pour éviter les problèmes de mémoire
+					let currentPage = 1;
+					
+					function renderNextPage() {
+						if (currentPage > pdf.numPages) {
+							// Toutes les pages sont rendues
+							if (loadingEl2.parentNode) {
+								loadingEl2.remove();
+							}
+							return;
+						}
+						
+						renderPage(currentPage).then(() => {
+							currentPage++;
+							renderNextPage();
+						}).catch(error => {
+							console.error('Erreur lors du rendu de la page', currentPage, error);
+							showError2('Erreur lors du rendu de la page ' + currentPage);
+						});
+					}
+					
+					// Commencer le rendu
+					renderNextPage();
+
+				})
+				.catch(function(error) {
+					console.error('Erreur:', error);
+					showError2('Erreur lors du chargement du PDF. Le PDF s\'ouvrira dans un nouvel onglet où vous pourrez voir toutes les pages.');
+				});
+		</script>
+	</body>
+</html>

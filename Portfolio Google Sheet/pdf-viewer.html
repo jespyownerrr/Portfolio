@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Marketing Strategy Proposal - Portfolio Jules Espy</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background: #e5e5e5;
+				font-family: Arial, sans-serif;
+			}
+			.back-button {
+				position: fixed;
+				top: 20px;
+				left: 20px;
+				z-index: 1000;
+				background: rgba(73, 191, 157, 0.9);
+				color: white;
+				padding: 12px 24px;
+				border-radius: 5px;
+				text-decoration: none;
+				font-weight: bold;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			}
+			.back-button:hover {
+				background: rgba(73, 191, 157, 1);
+			}
+			#pdf-container {
+				width: 100%;
+				min-height: 100vh;
+				padding: 80px 20px 40px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			.pdf-page {
+				margin-bottom: 30px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				background: white;
+				border-radius: 4px;
+				overflow: hidden;
+				width: 100%;
+				max-width: 900px;
+			}
+			.pdf-page canvas {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.loading {
+				text-align: center;
+				padding: 100px 20px;
+				color: #787878;
+				font-size: 18px;
+			}
+			.error {
+				text-align: center;
+				padding: 100px 20px;
+				color: #d32f2f;
+			}
+			.error a {
+				color: #49bf9d;
+				text-decoration: none;
+				font-weight: bold;
+				margin-top: 20px;
+				display: inline-block;
+				padding: 12px 30px;
+				background: rgba(73, 191, 157, 0.1);
+				border-radius: 5px;
+			}
+			.error a:hover {
+				background: rgba(73, 191, 157, 0.2);
+			}
+		</style>
+	</head>
+	<body>
+		<a href="index.html" class="back-button">← Retour au portfolio</a>
+		<div id="pdf-container">
+			<div class="loading" id="loading">Chargement du PDF...</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+		<script>
+			const pdfUrl = 'images/marketing-strategy-proposal.pdf';
+			const container = document.getElementById('pdf-container');
+			const loadingEl = document.getElementById('loading');
+
+			// Configuration PDF.js
+			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+			// Fonction pour afficher une erreur
+			function showError(message) {
+				container.innerHTML = '<div class="error">' + message + '<br><br><a href="' + pdfUrl + '" target="_blank">Ouvrir le PDF dans un nouvel onglet (toutes les pages visibles)</a></div>';
+			}
+
+			// Vérifier que le PDF est accessible
+			fetch(pdfUrl)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('PDF non accessible');
+					}
+					return response;
+				})
+				.then(() => {
+					// Charger le PDF avec PDF.js
+					loadingEl.textContent = 'Chargement du PDF...';
+					
+					return pdfjsLib.getDocument({
+						url: pdfUrl,
+						httpHeaders: {},
+						withCredentials: false
+					}).promise;
+				})
+				.then(function(pdf) {
+					console.log('PDF chargé, nombre de pages:', pdf.numPages);
+					loadingEl.textContent = 'Rendu des pages (' + pdf.numPages + ' pages)...';
+					container.innerHTML = '';
+					
+					// Fonction pour rendre une page
+					function renderPage(pageNum) {
+						return pdf.getPage(pageNum).then(function(page) {
+							const scale = 1.5;
+							const viewport = page.getViewport({ scale: scale });
+
+							const canvas = document.createElement('canvas');
+							const context = canvas.getContext('2d');
+							canvas.height = viewport.height;
+							canvas.width = viewport.width;
+							canvas.style.maxWidth = '100%';
+							canvas.style.height = 'auto';
+
+							const pageDiv = document.createElement('div');
+							pageDiv.className = 'pdf-page';
+							pageDiv.setAttribute('data-page', pageNum);
+							pageDiv.appendChild(canvas);
+							container.appendChild(pageDiv);
+
+							const renderContext = {
+								canvasContext: context,
+								viewport: viewport
+							};
+							
+							return page.render(renderContext).promise.then(() => {
+								loadingEl.textContent = 'Page ' + pageNum + ' sur ' + pdf.numPages + ' rendue...';
+							});
+						});
+					}
+
+					// Rendre toutes les pages séquentiellement pour éviter les problèmes de mémoire
+					let currentPage = 1;
+					
+					function renderNextPage() {
+						if (currentPage > pdf.numPages) {
+							// Toutes les pages sont rendues
+							if (loadingEl.parentNode) {
+								loadingEl.remove();
+							}
+							return;
+						}
+						
+						renderPage(currentPage).then(() => {
+							currentPage++;
+							renderNextPage();
+						}).catch(error => {
+							console.error('Erreur lors du rendu de la page', currentPage, error);
+							showError('Erreur lors du rendu de la page ' + currentPage);
+						});
+					}
+					
+					// Commencer le rendu
+					renderNextPage();
+
+				})
+				.catch(function(error) {
+					console.error('Erreur:', error);
+					showError('Erreur lors du chargement du PDF. Le PDF s\'ouvrira dans un nouvel onglet où vous pourrez voir toutes les pages.');
+				});
+		</script>
+	</body>
+</html>
