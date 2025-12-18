@@ -1,0 +1,7 @@
+{
+  "buildCommand": "echo 'No build required'",
+  "outputDirectory": "Portfolio Google Sheet",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/Portfolio Google Sheet/$1" }
+  ]
+}
