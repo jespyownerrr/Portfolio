@@ -1,9 +1,9 @@
-// Petit serveur HTTP pour servir le dossier "Portfolio Google Sheet"
+// Petit serveur HTTP pour servir le portfolio
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
-const publicDir = path.join(__dirname, 'Portfolio Google Sheet');
+const publicDir = __dirname;
 const port = process.env.PORT || 8080;
 
 const mimeTypes = {
